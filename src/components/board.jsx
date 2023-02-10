@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Box from "./box";
-
-let commonValue = "[-]";
+import "./box.css";
 
 const Board = () => {
+  let commonValue = "";
   const [flag, setFlag] = useState(true);
   const [boxes, setBoxes] = useState([
     { id: 1, value: commonValue, disabler: false },
@@ -76,23 +76,26 @@ const Board = () => {
         console.log("O has won");
       }
     }
-  }, [boxes]);
+  }, [boxes, flag]);
 
   return (
-    <div>
-      {boxes.map((box) => {
-        if (box.id % 100 === 0) {
-          return <br key={box.id} />;
-        }
-        return (
-          <Box
-            key={box.id}
-            onButtonClick={handleClick}
-            currentBox={box}
-            boxValue={box.value}
-          />
-        );
-      })}
+    <div className="game">
+      <div className="play-button">Play</div>
+      <div className="board">
+        {boxes.map((box) => {
+          if (box.id % 100 === 0) {
+            return <br key={box.id} />;
+          }
+          return (
+            <Box
+              key={box.id}
+              onButtonClick={handleClick}
+              currentBox={box}
+              boxValue={box.value}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
